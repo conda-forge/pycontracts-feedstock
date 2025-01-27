@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/PyContracts-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/PyContracts-{{ version }}.tar.gz
   sha256: e76adbd832deec28b2045a6094c5bb779a0b2cb1105a23b3efafe723e2c9937a
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6,<3.10
+    - python {{ python_min }}
   run:
     - decorator ==4.0.10
     - future
     - numpy <1.16
     - pyparsing ==2.2.2
-    - python >=3.6,<3.10
+    - python >={{ python_min }},<3.10
     - six ==1.10.0
 
 test:
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/AndreaCensi/contracts
